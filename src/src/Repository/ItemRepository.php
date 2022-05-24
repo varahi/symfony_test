@@ -39,6 +39,16 @@ class ItemRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @param array $order
+     * @return Item[]
+     */
+    public function findAllOrder(array $order)
+    {
+        return $this->findBy([], $order);
+    }
+
+
 //    /**
 //     * @return Item[] Returns an array of Item objects
 //     */
