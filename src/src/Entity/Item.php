@@ -44,6 +44,11 @@ class Item
         $this->category = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return 'ID - ' . $this->id . ' ' .$this->title;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

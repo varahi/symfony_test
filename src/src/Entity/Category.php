@@ -20,11 +20,6 @@ class Category
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $parentid;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
@@ -44,26 +39,31 @@ class Category
      */
     private $items;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="children")
+     * @ORM\JoinColumn(name="parent", referencedColumnName="id", nullable=true)
+     */
+    private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="parent")
+     */
+    private $children;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->children = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return 'ID - ' . $this->id . ' ' .$this->title;
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getParentid(): ?int
-    {
-        return $this->parentid;
-    }
-
-    public function setParentid(int $parentid): self
-    {
-        $this->parentid = $parentid;
-
-        return $this;
     }
 
     public function getTitle(): ?string
@@ -124,6 +124,46 @@ class Category
     {
         if ($this->items->removeElement($item)) {
             $item->removeCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    public function setParent(Category $parent)
+    {
+        $this->parent = $parent;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getChildren(): Collection
+    {
+        return $this->children;
+    }
+
+    public function addChild(self $child): self
+    {
+        if (!$this->children->contains($child)) {
+            $this->children[] = $child;
+            $child->setParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChild(self $child): self
+    {
+        if ($this->children->removeElement($child)) {
+            // set the owning side to null (unless already changed)
+            if ($child->getParent() === $this) {
+                $child->setParent(null);
+            }
         }
 
         return $this;

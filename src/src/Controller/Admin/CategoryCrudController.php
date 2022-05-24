@@ -3,9 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
@@ -21,29 +23,31 @@ class CategoryCrudController extends AbstractCrudController
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
-            ->add(EntityFilter::new('id'))
-            ->add(EntityFilter::new('parentid'))
-            ->add(EntityFilter::new('title'))
+            ->add(EntityFilter::new('item'))
             ;
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('category.title')
+            ->setEntityLabelInPlural('category.title')
+            ->setSearchFields(['id', 'title', 'description'])
+            ->setDefaultSort(['id' => 'ASC']);
     }
 
     public function configureFields(string $pageName): iterable
     {
         yield IntegerField::new('id')->setFormTypeOption('disabled', 'disabled');
-        yield IntegerField::new('parentid');
+        yield AssociationField::new('parent')->hideOnIndex();
+        yield AssociationField::new('children')
+            ->setFormTypeOptions([
+                'by_reference' => false,
+            ])->hideOnIndex()
+        ;
         yield TextField::new('title');
         yield TextEditorField::new('description');
+        yield AssociationField::new('items')->hideOnIndex();
         yield BooleanField::new('isHidden');
     }
-
-    /*
-    public function configureFields(string $pageName): iterable
-    {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
-    }
-    */
 }
