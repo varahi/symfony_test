@@ -47,7 +47,7 @@ services:
       - ./store/my.cnf:/etc/mysql/conf.d/custom.cnf
     environment:
       MYSQL_ROOT_PASSWORD: dev
-      MYSQL_DATABASE: typo3_dev
+      MYSQL_DATABASE: symfony_dev
       MYSQL_USER: dev
       MYSQL_PASSWORD: dev
 
