@@ -30,8 +30,8 @@ class ItemCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('item.title')
-            ->setEntityLabelInPlural('item.title')
+            ->setEntityLabelInSingular('Items')
+            ->setEntityLabelInPlural('Items')
             ->setSearchFields(['id', 'title', 'description'])
             ->setDefaultSort(['id' => 'ASC']);
     }

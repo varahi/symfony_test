@@ -134,7 +134,7 @@ class Category
         return $this->parent;
     }
 
-    public function setParent(Category $parent)
+    public function setParent($parent)
     {
         $this->parent = $parent;
     }

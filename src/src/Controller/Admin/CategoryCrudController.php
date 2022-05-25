@@ -30,8 +30,8 @@ class CategoryCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('category.title')
-            ->setEntityLabelInPlural('category.title')
+            ->setEntityLabelInSingular('Categories')
+            ->setEntityLabelInPlural('Categories')
             ->setSearchFields(['id', 'title', 'description'])
             ->setDefaultSort(['id' => 'ASC']);
     }
@@ -39,13 +39,14 @@ class CategoryCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield IntegerField::new('id')->setFormTypeOption('disabled', 'disabled');
-        yield AssociationField::new('parent')->hideOnIndex();
+        yield TextField::new('title');
+        //yield AssociationField::new('parent')->hideOnIndex();
         yield AssociationField::new('children')
             ->setFormTypeOptions([
                 'by_reference' => false,
             ])->hideOnIndex()
         ;
-        yield TextField::new('title');
+
         yield TextEditorField::new('description');
         yield AssociationField::new('items')->hideOnIndex();
         yield BooleanField::new('isHidden');
