@@ -13,7 +13,7 @@ import Categories from './components/Categories';
 import '../css/app.css';
 
 // start the Stimulus application
-import '../bootstrap';
+//import '../bootstrap';
 
 new Vue({
     el: '#app',

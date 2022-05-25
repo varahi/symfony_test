@@ -1,11 +1,11 @@
 <template>
   <div class="row">
-    <div class="col" v-if="items && items.length">
-      <div class="item" v-for="item of items">
-        <h3><strong>{{item.title}}</strong></h3>
-        <div class="description">{{item.description}}</div>
-      </div>
-    </div>
+    <ul class="col" v-if="items && items.length">
+      <li class="item" v-for="item of items">
+        {{item.title}}
+        <p class="description">{{item.description}}</p>
+      </li>
+    </ul>
 
     <ul v-if="errors && errors.length">
       <li v-for="error of errors">

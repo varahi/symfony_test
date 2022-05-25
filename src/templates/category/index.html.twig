@@ -6,19 +6,17 @@
 
     <h1>{{ 'Categories'|trans }}</h1>
 
-    {#
     <div id="cat"><cat /></div>
-    #}
+
+    <hr />
+    <br />
 
     <ul>
         {% for category in categories %}
-            <!-- Parent category -->
             {% if category.children is not empty %}
                 <li>{{ category.title }}</li>
             {% endif %}
             <ul>
-
-            <!-- Child category -->
             {% for children in category.children %}
                 <li>{{ children.title }}</li>
             {% endfor %}
