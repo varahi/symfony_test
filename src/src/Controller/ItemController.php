@@ -13,13 +13,11 @@ class ItemController extends AbstractController
     use DataTrait;
 
     /**
-     * @Route("/item", name="app_item")
+     * @Route("/", name="app_home")
      */
-    public function index(
-        ItemRepository $itemRepository
-    ): Response {
-        return $this->render('item/index.html.twig', [
-            'controller_name' => 'ItemController',
+    public function home()
+    {
+        return $this->render('item/home.html.twig', [
         ]);
     }
 

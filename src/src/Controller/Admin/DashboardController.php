@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Item;
@@ -17,7 +18,9 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        return parent::index();
+        //return parent::index();
+        $routeBuilder = $this->get(AdminUrlGenerator::class);
+        return $this->redirect($routeBuilder->setController(ItemCrudController::class)->generateUrl());
     }
 
 
@@ -29,7 +32,7 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToRoute('adminpanel.back_to_site', 'fa fa-home', 'app_home');
 
         yield MenuItem::section('Items and categories');
         yield MenuItem::subMenu('Items', 'fa fa-tags')->setSubItems([

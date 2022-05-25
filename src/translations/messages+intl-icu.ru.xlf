@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="ru" datatype="plaintext" original="file.ext">
+  <file source-language="ru" target-language="ru" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -12,6 +12,10 @@
       <trans-unit id="G6kzP_f" resname="item.title">
         <source>Item</source>
         <target>Товар</target>
+      </trans-unit>
+      <trans-unit id="9N.Jsxi" resname="adminpanel.back_to_site">
+        <source>adminpanel.back_to_site</source>
+        <target>Back to the site</target>
       </trans-unit>
     </body>
   </file>
